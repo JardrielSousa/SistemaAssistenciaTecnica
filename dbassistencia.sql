@@ -64,6 +64,13 @@ idMaterial)values("manutencao",100.00,1);
 insert into CadServico ( tipoServico , valorServico , 
 idMaterial)values("revisao",10.00,2);
 
+insert into OrdensDeServicos(idCliente,IdMaterial,IdServico)
+values(1,1,1)
+
+
+
+
+
 select * from CadClientes
 select * from CadMaterial
 select * from CadServico
@@ -71,9 +78,20 @@ select * from CadServico
 alter table CadClientes 
 add column cpf varchar = 11111111111 where idCliente='1';
 
-select * from
+select nome,tipo , tipoServico , valorServico from
 CadMaterial , CadServico where CadMaterial.idMaterial =
 CadServico.idServico
+
+select nome , telefone , email , idServico , idMaterial
+from CadClientes , OrdensDeServicos  where 
+CadClientes.idCliente = OrdensDeServicos.IdCliente
+
+select CadClientes.nome as NomeClientes , CadMaterial.nome as
+NomeMaterial,tipoServico,valorServico,tipo as tipoMaterial, valorCompra from 
+CadClientes,OrdensDeServicos,CadServico,CadMaterial where
+ OrdensDeServicos.idServico = CadServico.idServico
+and OrdensDeServicos.idMaterial = CadMaterial.idMaterial
+and OrdensDeServicos.idCliente = CadClientes.idCliente
 
 
 
