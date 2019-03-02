@@ -8,12 +8,16 @@
 	$complemento = $_POST['complementoCadClientes'];
 	$bairro = $_POST['bairroCadClientes'];
 
+	if (!isset($nome)&&!isset($cpf)) {
+	header("../view/index.html");
+	} else {
+	echo "deu certo";
+	}
 
 	$insere = "INSERT INTO CadClientes(
 	nome,cpf,telefone,email,endereco,complemento,bairro)
 	values(:nome,:cpf,:telefone,:email,:endereco,:complemento,:bairro)";
 
-try{
 	$stmt = $con->prepare($insere);
 	$stmt->bindParam(':nome',$nome);
 	$stmt->bindParam(':cpf',$cpf);
@@ -22,12 +26,8 @@ try{
 	$stmt->bindParam(':endereco',$endereco);
 	$stmt->bindParam(':complemento',$complemento);
 	$stmt->bindParam(':bairro',$bairro);
-	$result = $stmt->execute();
+	$stmt->execute();
 
-	echo "Cadastrado com sucesso!!";
-}catch(PDOException $e) {
-    echo 'ERROR ao inserir ao banco: ' . $e->getMessage();
-}
-	
+	header('location:../view/index.html');
 	
 ?>
