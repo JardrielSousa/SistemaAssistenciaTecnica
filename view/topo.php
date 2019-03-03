@@ -3,7 +3,7 @@
 <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    		<link rel="stylesheet" href="node_modules/bootstrap/compiler/bootstrap.css">
+        <link rel="stylesheet" href="node_modules/bootstrap/compiler/bootstrap.css">
             <link rel="stylesheet" href="node_modules/bootstrap/compiler/style.css">
             <link href = "https://unpkg.com/ionicons@4.5.5/dist/css/ionicons.min.css"  rel = "stylesheet" >
             <link rel="stylesheet" href="node_modules/css/index.css">
@@ -62,13 +62,7 @@
     </ul>
   </div>
 </nav>
-        <div class="container-fluid">
-          <div class="principal ">
-            <div class="topo align-items-center" id="topo">
-              <img src="node_modules/img/home.jpg" class="img-thumbnail img" alt="Conserto de Celular">
-            </div>
-          </div>
-        </div>
+        
         <script src="node_modules/js/index.js"></script>
         <script src="node_modules/jquery/dist/jquery.js"></script>
         <script src="node_modules/Popper.js/dist/Popper.js"></script>
