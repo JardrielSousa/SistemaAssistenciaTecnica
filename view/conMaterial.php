@@ -12,9 +12,8 @@
     foreach ($result as $row) {   
     
     }
-    
-?>
 
+?>
 <table class="table table-striped">
   <thead>
     <tr class="bg-primary">
@@ -47,11 +46,11 @@
       
            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Visualizar<?php echo $row['idMaterial'];?>" data-whatever="<?php echo $row['idMaterial'];?>">Visualizar</button>
 
-           <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" data-whatever="<?php echo $row['idMaterial'];?>" data-whatevereditar="<?php echo $row['nome'];?>" data-whatevertipo="<?php echo $row['tipo'];?>"
+           <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" data-id="<?php echo $row['idMaterial'];?>" data-whatevereditar="<?php echo $row['nome'];?>" data-whatevertipo="<?php echo $row['tipo'];?>"
            	data-quantidade="<?php echo $row['quantidade'];?>"
            	data-compra="<?php echo $row['valorCompra'];?>"
-           	data-venda="<?php echo $row['valorVenda'];?>">Editar</button>
-           <button type="button" class="btn btn-danger" data-whatever="@mdo" data-toggle="modal" data-target="#modalApagar">Apagar</button>
+           	data-venda="<?php echo $row['valorVenda'];?>" onclinck="alterar()">Editar</button>
+           <button type="button" class="btn btn-danger" data-whatever="<?php echo $row['idMaterial'];?>" data-toggle="modal" data-target="#modalApagar">Apagar</button>
       </td>
     </tr>
     <!-- Modal Visualizar-->
@@ -89,35 +88,35 @@
         </button>
       </div>
       <div class="modal-body">
-        <form method="_POST">
+        <form action="../Controller/update.php" method="POST" >
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Nome:</label>
-            <input type="text" class="form-control" id="recipient-name" value="">
+            <input type="text" class="form-control" name="nome" id="recipient-name" value="">
           </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">tipo:</label>
-            <input type="text" class="form-control" id="recipient-tipo" value="">
+            <input type="text" class="form-control" name="tipo" id="recipient-tipo" value="">
           </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Quantidade:</label>
-            <input type="text" class="form-control" id="quantidade" value="">
+            <input type="text" class="form-control" name="quantidade" id="quantidade" value="">
           </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Valor da Compra:</label>
-            <input type="text" class="form-control" id="recipient-compra" value="">
+            <input type="text" class="form-control" name="valorCompra" id="recipient-compra" value="">
           </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Valor da Venda:</label>
-            <input type="text" class="form-control" id="recipient-venda" value="">
+            <input type="text" class="form-control" name="valorVenda" id="recipient-venda" value="">
           </div>
+          <input type="hidden" id="id" name="id">
+          <div class="modal-footer">
+  		      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+        	  <button type="submit" class="btn btn-primary">Alterar</button>        
+      	  </div>
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <a href="conMaterial.php?id=<?=$row['id'];?>">
-        <button type="button" class="btn btn-primary">Send message</button>
-        </a>
-      </div>
+      
     </div>
   </div>
 </div>
@@ -155,6 +154,7 @@
   var quantidade = button.data('quantidade')
   var compra = button.data('compra')
   var venda = button.data('venda')
+  var id = button.data('id')
   
   
  // Extract info from data-* attributes
@@ -162,6 +162,7 @@
   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
   var modal = $(this)
   modal.find('.modal-title').text(recipient)
+  modal.find('#id').val(id)
   modal.find('#recipient-name').val(recipient)
   modal.find('#recipient-tipo').val(recipienttipo)
   modal.find('#quantidade').val(quantidade)

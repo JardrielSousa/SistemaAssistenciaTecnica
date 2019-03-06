@@ -49,39 +49,38 @@
   public function Excluir(){
     global $pdo;
     $id = $ $_GET['id'] ;
-    $deletar->$pdo->prepare("DELETE * FROM cadMaterial where id = :id");
+    $deletar->$pdo->prepare("DELETE * FROM cadMaterial where id = '$id'");
     $deletar->bindValue(":id",$id);
     $deletar->execute();
 
 
-    header('location:../conMaterial.php');
+    header('location:../view/conMaterial.php');
 
   }
-  public function alterar($nome, $tipo, $quantidade, $valorCompra, $valorVenda){
+
+  public function alterar($id,$nome,$tipo,$quantidade,$valorCompra,$valorVenda){
     global $pdo;
-     $sql = $pdo->prepare("SELECT id FROM cadmaterial WHERE nome = :nome , tipo = :tipo
-      quantidade = :quantidade , valorCompra = :valorCompra , valorVenda = :valorVenda");
-     $sql->bindValue(":nome",$nome);
-     $sql->bindValue(":tipo",$tipo);
-     $sql->bindValue(":quantidade",$quantidade);
-     $sql->bindValue(":valorCompra",$valorCompra);
-     $sql->bindValue(":valorVenda",$valorVenda);
-     $sql->execute();
+   try{
+       $pdo = new PDO('mysql:host=localhost;dbname=assistenciatecnica', 'root', 'vertrigo');
+    //$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+   $sql = $pdo->prepare("UPDATE cadmaterial SET nome = '$nome' , tipo = '$tipo',quantidade = '$quantidade' , valorVenda = '$valorVenda' , valorCompra = '$valorCompra' 
+    where idMaterial ='$id'");
+    $sql->execute();
+    echo $sql->rowCount();
 
-    if($sql->rowCount($sql) > 0){
-    return false;   // Já está cadastrado
+    if($sql != 0){
+     echo "<script language=javascript>alert( 'Alterado com sucesso!' );</script>";
+    }else{
+      echo "<script language=javascript>alert( 'Alerta Verde!' );</script>";
     }
-      else{ //caso não, cadastrar
-      $sql = $pdo->prepare(" INSERT INTO cadmaterial(nome, tipo, quantidade,valorCompra,valorVenda) VALUES (:nome, :tipo, :quantidade,:valorCompra,:valorVenda)");
-      $sql->bindValue(":nome", $nome);         
-      $sql->bindValue(":tipo", $tipo);
-      $sql->bindValue(":quantidade", $quantidade);
-      $sql->bindValue(":valorVenda", $valorVenda);
-      $sql->bindValue(":valorCompra", $valorCompra);
-      $sql->execute();
-      return true;
+
+header('location:../view/conMaterial.php');
+return $sql;
+
+   }catch(PDOException $e){
+      echo 'Error: ' . $e->getMessage();
+   }
   }
-  
-}
+
 }
 ?>
